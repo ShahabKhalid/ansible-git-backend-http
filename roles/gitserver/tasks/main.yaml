@@ -1,0 +1,5 @@
+---
+
+- name: Deploy Git Server
+  include: "{{ ansible_distribution }}/main.yaml"
+  tags: deploy_git_server

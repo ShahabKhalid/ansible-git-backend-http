@@ -1,0 +1,64 @@
+---
+
+- name: Install git
+  apt:
+    name: git
+    state: present
+
+- name: Install git-core
+  apt:
+    name: git-core
+    state: present
+
+- name: Install apache2
+  apt:
+    name: apache2
+    state: present
+
+- name: Install apache2 utils
+  apt:
+    name: apache2-utils
+    state: present
+
+- name: Enable mod_cgi, mod_alias, mod_env
+  shell: a2enmod cgi alias env
+
+- name: Copy git.conf template
+  template:
+    src: git.conf
+    dest: /etc/apache2/sites-available/{{git_config_file}}
+
+- name: Create git www path
+  file:
+    path: "{{git_www_path}}"
+    state: directory
+
+- name: Create git repos config directory
+  file:
+    path: "{{git_repo_config_path}}"
+    state: directory
+
+- name: Create empty repo config
+  file:
+    path: "{{git_repo_config_path}}empty.conf"
+    state: touch
+
+- name: Change group for git directory
+  file:
+    path: "{{git_www_path}}"
+    group: www-data
+    mode: 777
+
+- name: Removing default site
+  file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+
+- name: Enable git.conf
+  shell: a2ensite {{git_config_file}}
+
+- name: Restart apache2 service
+  systemd:
+    name: apache2
+    state: restarted
+

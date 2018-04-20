@@ -1,0 +1,6 @@
+---
+- hosts: git-server
+  roles:
+    - gitserver
+  tags:
+    - deploy_git_server

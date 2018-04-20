@@ -1,0 +1,4 @@
+# Ansible Production File
+
+[git-server]
+git_server ansible_ssh_host='192.168.100.10'

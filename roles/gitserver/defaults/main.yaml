@@ -1,0 +1,6 @@
+---
+
+git_www_path: '/var/www/git'
+git_config_file: 'git.conf'
+git_repo_config_path: '/srv/git-configs/'
+git_core_path: '/usr/lib/git-core'
