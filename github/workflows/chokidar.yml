@@ -1,0 +1,13 @@
+---
+on:
+  - push
+
+env:
+  TAG: security-tool
+
+jobs:
+  call-workflow:
+    uses: deliveryhero/dh-chokidar/.github/workflows/scan.yml@main
+    with:
+      semgrep_rules: p/terraform p/secrets
+      on_fail: x
